@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Location Finder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Leaflet Map Library -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+  <style>
+    body {
+      font-family: Arial;
+      padding: 10px;
+    }
+    input, button {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0;
+    }
+    #map {
+      height: 300px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h3>Latitude & Longitude Location Finder</h3>
+
+  <input type="number" step="any" id="lat" placeholder="Enter Latitude">
+  <input type="number" step="any" id="lon" placeholder="Enter Longitude">
+
+  <button onclick="showLocation()">Show on Map</button>
+
+  <div id="map"></div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <script>
+    var map = L.map('map').setView([0, 0], 2);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+    var marker;
+
+    function showLocation() {
+      var lat = document.getElementById("lat").value;
+      var lon = document.getElementById("lon").value;
+
+      if (marker) {
+        map.removeLayer(marker);
+      }
+
+      marker = L.marker([lat, lon]).addTo(map);
+      map.setView([lat, lon], 15);
+    }
+  </script>
+
+</body>
+</html>
